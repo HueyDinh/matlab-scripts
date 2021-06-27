@@ -10,13 +10,13 @@ temp_funct = @(gamma) tau_gamma_pair(@p1,Nit,gamma,y_thres,dy_thres);
 [tau_series,gamma_series] = arrayfun(temp_funct,gamma_list);
 tau_a = arrayfun(@analytic,gamma_list);
 
-f1=figure("name","Differential equation Solution gamma=0.25");
+f1=figure("name","Differential Equation Solution gamma=0.25");
 plot1 = plot(t,y(:,1),'r');
 title('Initial Value Problem Solution with \gamma =0.25')
 xlabel('t')
 ylabel('y')
 
-f2=figure("name","Analytic solution vs. Estimation Algorithm");
+f2=figure("name","Analytic Solution vs. Estimation Algorithm");
 plot2 = plot(gamma_series,tau_series,'r--',gamma_list,tau_a);
 title('Time Until Solution Fade Out (\tau) vs. \gamma')
 xlabel('\gamma')
