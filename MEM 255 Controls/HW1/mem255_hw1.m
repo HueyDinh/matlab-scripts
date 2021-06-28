@@ -1,12 +1,12 @@
 gamma_0=0.25;
 gamma_list =linspace(0.05,1.99,1000);
-Nit = [2 0]';
-y_thres =Nit(1)*0.001;
+init = [2 0]';
+y_thres =init(1)*0.001;
 dy_thres = 0.002;
 t_span = [0 25/gamma_0];
-[t,y] = ode45(@(t,y) p1(t,y,gamma_0),t_span,Nit);
+[t,y] = ode45(@(t,y) p1(t,y,gamma_0),t_span,init);
 tau = negligible(t,y,y_thres,dy_thres);
-temp_funct = @(gamma) tau_gamma_pair(@p1,Nit,gamma,y_thres,dy_thres);
+temp_funct = @(gamma) tau_gamma_pair(@p1,init,gamma,y_thres,dy_thres);
 [tau_series,gamma_series] = arrayfun(temp_funct,gamma_list);
 tau_a = arrayfun(@analytic,gamma_list);
 
