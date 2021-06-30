@@ -1,5 +1,5 @@
 gamma_0=0.25;
-gamma_list =linspace(0.05,1.99,1000);
+gamma_list =linspace(0.05,1.99,100);
 init = [2 0]';
 y_thres =init(1)*0.001;
 dy_thres = 0.002;
@@ -17,7 +17,9 @@ xlabel('t')
 ylabel('y')
 
 f2=figure("name","Analytic Solution vs. Estimation Algorithm");
-plot2 = plot(gamma_series,tau_series,'r--',gamma_list,tau_a);
+plot2 = plot(gamma_list,tau_a);
+hold on;
+plot3 = plot(gamma_series,tau_series,'rx');
 title('Time Until Solution Fade Out (\tau) vs. \gamma')
 xlabel('\gamma')
 ylabel('\tau')
