@@ -13,16 +13,21 @@ tau_a = arrayfun(@analytic,gamma_list);
 f1=figure("name","Differential Equation Solution gamma=0.25");
 plot1 = plot(t,y(:,1),'r');
 title('Initial Value Problem Solution with \gamma =0.25')
-xlabel('t')
+xlabel('t (seconds)')
+ylim([-2.5 2.5]);
 ylabel('y')
+grid;
+yline(0);
 
-f2=figure("name","Analytic Solution vs. Estimation Algorithm");
+f2=figure("name","Estimation Algorithm");
 plot2 = plot(gamma_list,tau_a);
 hold on;
 plot3 = plot(gamma_series,tau_series,'rx');
-title('Time Until Solution Fade Out (\tau) vs. \gamma')
-xlabel('\gamma')
-ylabel('\tau')
+title('Time Until Solution Fade Out (\tau) vs. \gamma');
+xlabel('\gamma');
+ylabel('\tau (seconds)');
+grid;
+legend(["Analytic Solution" "Algorithm Estimation"]);
 
 function dy = p1(t,y,gamma)
 dy = [y(2);-gamma*y(2)-y(1)];
