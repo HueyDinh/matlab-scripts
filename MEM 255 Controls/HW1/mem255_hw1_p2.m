@@ -4,5 +4,11 @@ figure;
 plot(poles,"x");
 hold on;
 plot(zeros,"o");
+hold off;
+title('Transfer function poles and zeros visualization.');
+xlabel("Real Part");
+ylabel("Imaginary Part");
+yline(0);
+xline(0);
 
 
