@@ -9,9 +9,13 @@ tau = negligible(t,y,y_thres,dy_thres);
 temp_funct = @(gamma) tau_gamma_pair(@p1,init,gamma,y_thres,dy_thres);
 [tau_series,gamma_series] = arrayfun(temp_funct,gamma_list);
 tau_analytic = arrayfun(@analytic,gamma_list);
+[t_anal,y_anal]=arrayfun(@solution,t);
 
 f1=figure("name","Differential Equation Solution gamma=0.25");
 plot1 = plot(t,y(:,1),'r');
+hold on;
+plot(t_anal,y_anal);
+hold off;
 title('Initial Value Problem Solution with \gamma =0.25')
 xlabel('t (seconds)')
 ylim([-2.5 2.5]);
@@ -43,6 +47,7 @@ xlabel('\gamma');
 ylabel('\tau (seconds)');
 grid;
 
+
 function dy = p1(t,y,gamma)
 dy = [y(2);-gamma*y(2)-y(1)];
 end
@@ -65,4 +70,9 @@ end
 
 function tau = analytic(gam)
 tau=-2/gam*log(0.02*(4-gam^2)^0.5/4);
+end
+
+function [t,y] = solution(t)
+om=sqrt(4-0.25^2)/2*t;
+y=2*exp(-0.25/2*t)*(cos(om)+0.25/sqrt(4-0.25^2)*sin(om));
 end
