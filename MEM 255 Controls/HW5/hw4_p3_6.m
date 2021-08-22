@@ -28,3 +28,7 @@ xlabel("Time (seconds)");
 ylabel("Response Amplitude");
 legend("Location",'southeast');
 grid; grid minor;
+
+%test
+% sys = tf([4],[1 3 2]);
+% step(sys);

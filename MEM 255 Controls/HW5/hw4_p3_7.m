@@ -35,3 +35,8 @@ ylabel("Response Amplitude");
 legend("Location",'southeast');
 grid; grid minor;
 
+%test
+sys = tf([20],[1 2 10]);
+step(sys);
+comb_ser = arrayfun(@(t) x_2_1(t) + x_2_2(t),t);
+plot(t,comb_ser,'DisplayName',"Sum of sinusoidal Response");
