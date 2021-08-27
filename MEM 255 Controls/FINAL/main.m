@@ -11,7 +11,7 @@ c=2;
 
 %Flags
 thrust_off = false;
-torque_off = false;
+torque_off = true;
 
 %Derived Quantities
 M11 = (m1*m2)/(m1+m2)*(l1+l2)^2+j1+j2;
@@ -42,13 +42,14 @@ ssA1 = [zeros(2) eye(2);
       -M\K -M\C];
 ssB1 = [zeros(2,num_col_B_mat);
       M\B_matrix];
-ssC1 = [1 0 0 0];
+ssC1 = [1 0 0 0;0 1 0 0];
 ssD1 = 0;
 %%%State Space Object 1
 ss_1 = ss(ssA1,ssB1,ssC1,ssD1);
 %%%Equvalent TF;
 tf_1 = tf(ss_1);
 %%%System Poles
+[vect,val] = eig(ssA1);
 poles1 = pole(ss_1);
 %%%Controllability Matrix
 ctrb_ss_1 = ctrb(ss_1);
@@ -56,5 +57,18 @@ num_unctrb_ss_1 = length(ssA1) - rank(ctrb_ss_1);
 %%%Observability Matrix
 obs_ss_1 = obsv(ss_1);
 num_unobs_ss_1 = length(ssA1) - rank(obs_ss_1);
-%%Step Input (Make Sure to Disable Torquer)
-step(ss_1);
+%%Impulse Input (Make Sure to Disable Torquer)
+[outs,t]=impulse(ss_1);
+figure;
+plot(outs(:,1),t);
+title("System's Pitch Angle \theta response to Unit Impulse Thrust Input");
+xlabel("Time (seconds)");
+ylabel("\theta (radiant)")
+
+figure;
+plot(outs(:,2),t);
+title("System's Pitch Angle \theta response to Unit Impulse Thrust Input");
+xlabel("Time (seconds)");
+ylabel("\theta (radiant)")
+
+
