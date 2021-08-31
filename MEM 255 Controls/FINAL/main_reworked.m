@@ -76,39 +76,107 @@ T_unctrl = length(ssA) - rank(ctrb_T);
 
 % ss Rep for P6;
 ss_p6 = ss(ssA,ssB_f,ssC_full,ssD);
-[outs,t]=impulse(ss_p6);
+[outs_6,t]=impulse(ss_p6);
 figure;
-plot(t,outs(:,1));
-title("System's Pitch Angle \theta response to Unit Impulse Thrust Input");
+plot(t,outs_6(:,1));
+title("System's Pitch Angle $\theta$ response to Unit Impulse Thrust Input","Interpreter","latex");
 xlabel("Time (seconds)");
 ylabel("\theta (radiant)");
+xlim([0 40]);
 grid; grid minor;
 
 figure;
-plot(t,outs(:,2));
-title("System's Hinge Angle \psi response to Unit Impulse Thrust Input");
+plot(t,outs_6(:,2));
+title("System's Hinge Angle $\psi$ response to Unit Impulse Thrust Input","Interpreter","latex");
 xlabel("Time (seconds)");
 ylabel("\theta (radiant)");
+xlim([0 70]);
 grid; grid minor;
 
 figure;
-plot(t,outs(:,3));
+plot(t,outs_6(:,3));
 title("System's Pitch Angle Velocity $\dot{\theta}$ response to Unit Impulse Thrust Input","Interpreter","latex");
 xlabel("Time (seconds)");
 ylabel("\theta (radiant/s)");
+xlim([0 70]);
 grid; grid minor;
 
 figure;
-plot(t,outs(:,4));
+plot(t,outs_6(:,4));
 title("System's Hinge Angle Velocity $\dot{\psi}$ response to Unit Impulse Thrust Input","Interpreter","latex");
+xlabel("Time (seconds)");
+ylabel("\theta (radiant/s)");
+xlim([0 70]);
+grid; grid minor;
+
+%Full State Feedback Stability Evaluation
+ss_p8 = ss(ssAG,ssB_f,ssC_full,ssD);
+[VG, EG] = eig(ssAG);
+[wn_G, zeta_g, poles_G] = damp(ss_p8);
+[outs_8,t_8] = impulse(ss_p8);
+
+figure;
+plot(t_8,outs_8(:,1));
+title("System's Pitch Angle $\theta$ response to Unit Impulse Thrust Input, Full State Feedback","Interpreter","latex");
+xlabel("Time (seconds)");
+ylabel("\theta (radiant)");
+grid; grid minor;
+
+figure;
+plot(t_8,outs_8(:,2));
+title("System's Hinge Angle $\psi$ response to Unit Impulse Thrust Input, Full State Feedback","Interpreter","latex");
+xlabel("Time (seconds)");
+ylabel("\theta (radiant)");
+xlim([0 70]);
+grid; grid minor;
+
+figure;
+plot(t_8,outs_8(:,3));
+title("System's Pitch Angle Velocity $\dot{\theta}$ response to Unit Impulse Thrust Input, Full State Feedback","Interpreter","latex");
+xlabel("Time (seconds)");
+ylabel("\theta (radiant/s)");
+xlim([0 120]);
+grid; grid minor;
+
+figure;
+plot(t_8,outs_8(:,4));
+title("System's Hinge Angle Velocity $\dot{\psi}$ response to Unit Impulse Thrust Input, Full State Feedback","Interpreter","latex");
+xlabel("Time (seconds)");
+ylabel("\theta (radiant/s)");
+xlim([0 70]);
+grid; grid minor;
+
+%Problem 8 Step Input
+[outs_8s,t_8s] = step(ss_p8);
+figure;
+plot(t_8s,outs_8s(:,1));
+title("System's Pitch Angle $\theta$ response to Unit Step Thrust Input, Full State Feedback","Interpreter","latex");
+xlabel("Time (seconds)");
+ylabel("\theta (radiant)");
+grid; grid minor;
+
+figure;
+plot(t_8s,outs_8s(:,2));
+title("System's Hinge Angle $\psi$ response to Unit Step Thrust Input, Full State Feedback","Interpreter","latex");
+xlabel("Time (seconds)");
+ylabel("\theta (radiant)");
+xlim([0 70]);
+grid; grid minor;
+
+figure;
+plot(t_8s,outs_8s(:,3));
+title("System's Pitch Angle Velocity $\dot{\theta}$ response to Unit Step Thrust Input, Full State Feedback","Interpreter","latex");
 xlabel("Time (seconds)");
 ylabel("\theta (radiant/s)");
 grid; grid minor;
 
-%Full State Feedback Stability Evaluation
-ss_p8 = ss(ssAG,ssB,ssC_full,ssD);
-[VG, EG] = eig(ssAG);
-[wn_G, zeta_g, poles_G] = damp(ss_p8);
-impulse(ss_p8);
+figure;
+plot(t_8s,outs_8s(:,4));
+title("System's Hinge Angle Velocity $\dot{\psi}$ response to Unit Step Thrust Input, Full State Feedback","Interpreter","latex");
+xlabel("Time (seconds)");
+ylabel("\theta (radiant/s)");
+xlim([0 70]);
+grid; grid minor;
 
+step(ss_p8)
 
